@@ -27,7 +27,7 @@ export class UsersService {
         },
     ];
 
-    findOne(id: number){
-        return this.users.find(x => x.id === id);
+    findOne(username: string){
+        return this.users.find(x => x.username === username);
     }
 }
