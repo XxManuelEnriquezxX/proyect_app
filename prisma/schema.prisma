@@ -14,3 +14,11 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Usuarios{
+  id    String @id @default(cuid())
+  name  String @db.VarChar(64)
+  apellidoPaterno String @db.VarChar(64)
+  apellidoMaterno String @db.VarChar(64)
+  color String @db.VarChar(32)
+}
