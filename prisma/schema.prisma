@@ -14,3 +14,15 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Usuarios {
+  id               String @id @default(cuid())
+  name             String @db.VarChar(64)
+  apellidoPaterno  String @db.VarChar(64)
+  apellidoMaterno  String @db.VarChar(64)
+  email            String @db.VarChar(64) 
+  suscripto        Boolean
+  nombreUsuario    String @db.VarChar(64)
+
+  @@map("usuarios")
+}
