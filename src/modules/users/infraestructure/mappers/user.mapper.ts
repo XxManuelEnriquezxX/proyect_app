@@ -9,13 +9,14 @@ export class UserMapper {
    */
   static toDomain(raw: any): User {
     return new User(
-      raw.id,
-      raw.name,
-      raw.email,
-      raw.suscripto,
-      raw.nombreUsuario,
-      raw.apellidoMaterno,
-      raw.apellidoPaterno,
+      raw.id,                
+      raw.nombreUsuario,     
+      raw.password,          
+      raw.email,             
+      raw.name,              
+      raw.apellidoPaterno,   
+      raw.apellidoMaterno,  
+      raw.suscripto         
     );
   }
 
@@ -26,6 +27,7 @@ export class UserMapper {
     return {
       id: user.id,
       name: user.name,
+      password: user.password,
       email: user.email,
       suscripto: user.suscripto,
       nombreUsuario: user.nombreUsuario,
