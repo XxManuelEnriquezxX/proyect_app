@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../../domain/entities/user';
 import { IUserRepository } from '../../domain/interfaces/user-repository.interface';
 import { CrearUsuarioDTO } from '../dtos/create-user.dto';
-
+import * as bcrypt from 'bcrypt';
 /**
  * Caso de uso para crear un usuario
  */
@@ -16,14 +16,16 @@ export class CrearUsuarioUseCase {
    * @returns usuario creado
    */
   async execute(dto: CrearUsuarioDTO): Promise<User> {
+    const passwordCifrada = await bcrypt.hash(dto.password, 5); //el 5 es el número de iteracciones
     const user = new User(
       '', // ID lo genera la BD
-      dto.name,
-      dto.email,
-      dto.suscripto ?? false,
-      dto.nombreUsuario,
-      dto.apellidoPaterno,
-      dto.apellidoMaterno
+        dto.nombreUsuario,
+        passwordCifrada, 
+        dto.email,
+        dto.name,
+        dto.apellidoPaterno,
+        dto.apellidoMaterno,
+        dto.suscripto ?? false
     );
 
     return await this.userRepository.crear(user);

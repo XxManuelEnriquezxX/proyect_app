@@ -1,33 +1,37 @@
 export class User {
   id: string;
-  name: string;
-  email: string;
-  suscripto: boolean;
   nombreUsuario: string;
+  password: string;
+  email: string;
+  name: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
+  suscripto: boolean;
+
 
   constructor(
     id: string,
-    name: string,
-    email: string,
-    suscripto: boolean = false,
     nombreUsuario: string,
+    password: string,
+    email: string,
+    name: string,
     apellidoPaterno: string,
     apellidoMaterno: string,
+    suscripto: boolean = false
   ) {
     this.id = id;
-    this.name = name;
-    this.email = email;
-    this.suscripto = suscripto;
     this.nombreUsuario = nombreUsuario;
+    this.password = password;
+    this.email = email;
+    this.name = name;
     this.apellidoPaterno = apellidoPaterno;
     this.apellidoMaterno = apellidoMaterno;
+    this.suscripto = suscripto;
+
   }
 
   value() {
     return {
-      id: this.id,
       name: this.name,
       email: this.email,
       suscripto: this.suscripto,
