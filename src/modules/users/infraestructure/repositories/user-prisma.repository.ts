@@ -30,4 +30,13 @@ export class UserPrismaRepository extends IUserRepository {
     const all = await this.prisma.usuarios.findMany();
     return all.map(UserMapper.toDomain);
   }
+
+  async actualizar(id: string, user: User): Promise<User> {
+  const raw = await this.prisma.usuarios.update({
+    where: { id },
+    data: UserMapper.toPersistence(user),
+  });
+  return UserMapper.toDomain(raw);
+  }
+
 }
