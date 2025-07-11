@@ -10,7 +10,7 @@ export class UsersController {
     private readonly crearUsuarioUseCase: CrearUsuarioUseCase
   ) {}
 
-  @Post()
+  @Post('Add')
   @HttpCode(HttpStatus.CREATED)
   async crear(@Body() dto: CrearUsuarioDTO): Promise<UserResponseDTO> {
     const nuevoUsuario = await this.crearUsuarioUseCase.execute(dto);
