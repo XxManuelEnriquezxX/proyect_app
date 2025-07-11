@@ -25,8 +25,7 @@ export class CrearUsuarioDTO {
     @IsNotEmpty()
     @MinLength(4, {message : 'El nombre de usuario debe tener al menos 4 letras'})
     nombreUsuario: string;
-
-    @IsString()
-    color:string
-    
+    @IsNotEmpty()
+    @MinLength(4, {message : 'Contraseña muy débil, necesita más carácteres'})
+    password : string;
 }
