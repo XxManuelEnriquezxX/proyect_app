@@ -1,13 +1,15 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { CrearUsuarioUseCase } from '../../application/use-cases/create-user.use-case';
 import { CrearUsuarioDTO } from '../../application/dtos/create-user.dto';
 import { User } from '../../domain/entities/user';
 import { UserResponseDTO } from '../../application/dtos/response-user.dto';
+import { GetAllUsersUseCase } from '../../application/use-cases/getAll-user.use-case';
 
 @Controller('users')
 export class UsersController {
   constructor(
-    private readonly crearUsuarioUseCase: CrearUsuarioUseCase
+    private readonly crearUsuarioUseCase: CrearUsuarioUseCase,
+    private readonly getAllUsersUseCase: GetAllUsersUseCase,
   ) {}
 
   @Post('Add')
@@ -23,5 +25,11 @@ export class UsersController {
       apellidoMaterno: nuevoUsuario.apellidoMaterno,
       suscripto: nuevoUsuario.suscripto
     }
+  }
+
+  @Get('GetAllUsers')
+  async findAll() {
+    const users = await this.getAllUsersUseCase.execute();
+    return users.map(user => user.value());
   }
 }
