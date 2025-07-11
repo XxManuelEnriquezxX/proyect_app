@@ -17,9 +17,9 @@ datasource db {
 
 model Usuarios {
   id               String @id @default(cuid())
-  nombreUsuario    String @db.VarChar(64)
+  nombreUsuario    String @unique @db.VarChar(64)
   password String @db.VarChar(64)
-  email            String @db.VarChar(64) 
+  email            String @unique @db.VarChar(64) 
   name             String @db.VarChar(64)
   apellidoPaterno  String @db.VarChar(64)
   apellidoMaterno  String @db.VarChar(64)

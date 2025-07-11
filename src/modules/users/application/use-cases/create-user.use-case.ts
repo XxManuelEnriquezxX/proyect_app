@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { User } from '../../domain/entities/user';
 import { IUserRepository } from '../../domain/interfaces/user-repository.interface';
 import { CrearUsuarioDTO } from '../dtos/create-user.dto';
 import * as bcrypt from 'bcrypt';
+import { Prisma } from 'generated/prisma';
 /**
  * Caso de uso para crear un usuario
  */
@@ -16,8 +17,9 @@ export class CrearUsuarioUseCase {
    * @returns usuario creado
    */
   async execute(dto: CrearUsuarioDTO): Promise<User> {
-    const passwordCifrada = await bcrypt.hash(dto.password, 5); //el 5 es el número de iteracciones
-    const user = new User(
+    try { 
+      const passwordCifrada = await bcrypt.hash(dto.password, 5); //el 5 es el número de iteracciones
+      const user = new User(
       '', // ID lo genera la BD
         dto.nombreUsuario,
         passwordCifrada, 
@@ -26,8 +28,17 @@ export class CrearUsuarioUseCase {
         dto.apellidoPaterno,
         dto.apellidoMaterno,
         dto.suscripto ?? false
-    );
-
+      );
     return await this.userRepository.crear(user);
+    }catch(error){
+      if(
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ){
+        throw new ConflictException(`El nombre de usuario o email ya está en uso.`);
+      }
+       throw error;
+    }
+    
   }
 }
