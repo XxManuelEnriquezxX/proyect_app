@@ -5,6 +5,7 @@ import { PrismaService } from 'src/core/databases/prisma.service';
 import { UserPrismaRepository } from './infraestructure/repositories/user-prisma.repository';
 import { CrearUsuarioUseCase } from './application/use-cases/create-user.use-case';
 import { IUserRepository } from './domain/interfaces/user-repository.interface';
+import { ActualizarUsuarioUseCase } from './application/use-cases/update-user.use-case';
 import { GetAllUsersUseCase } from './application/use-cases/getAll-user.use-case';
 
 @Module({
@@ -17,6 +18,7 @@ import { GetAllUsersUseCase } from './application/use-cases/getAll-user.use-case
       useClass: UserPrismaRepository,
     },
     CrearUsuarioUseCase,
+    ActualizarUsuarioUseCase,
     GetAllUsersUseCase
   ],
   exports: [UsersService], // 👈 ¡esto es lo que faltaba!
