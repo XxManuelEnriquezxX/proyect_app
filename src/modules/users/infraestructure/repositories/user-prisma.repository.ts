@@ -26,9 +26,9 @@ export class UserPrismaRepository extends IUserRepository {
     return found ? UserMapper.toDomain(found) : null;
   }
 
-  async obtenerTodos(): Promise<User[]> {
-    const all = await this.prisma.usuarios.findMany();
-    return all.map(UserMapper.toDomain);
+    async obtenerTodos(): Promise<User[]> {
+    const allUsers = await this.prisma.usuarios.findMany();
+    return allUsers.map((user) => UserMapper.toDomain(user));
   }
 
   async actualizar(id: string, user: User): Promise<User> {

@@ -6,6 +6,7 @@ import { UserPrismaRepository } from './infraestructure/repositories/user-prisma
 import { CrearUsuarioUseCase } from './application/use-cases/create-user.use-case';
 import { IUserRepository } from './domain/interfaces/user-repository.interface';
 import { ActualizarUsuarioUseCase } from './application/use-cases/update-user.use-case';
+import { GetAllUsersUseCase } from './application/use-cases/getAll-user.use-case';
 
 @Module({
   controllers: [UsersController],
@@ -17,7 +18,8 @@ import { ActualizarUsuarioUseCase } from './application/use-cases/update-user.us
       useClass: UserPrismaRepository,
     },
     CrearUsuarioUseCase,
-    ActualizarUsuarioUseCase
+    ActualizarUsuarioUseCase,
+    GetAllUsersUseCase
   ],
   exports: [UsersService], // 👈 ¡esto es lo que faltaba!
 })
