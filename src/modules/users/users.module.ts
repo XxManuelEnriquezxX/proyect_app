@@ -7,6 +7,7 @@ import { CrearUsuarioUseCase } from './application/use-cases/create-user.use-cas
 import { IUserRepository } from './domain/interfaces/user-repository.interface';
 import { ActualizarUsuarioUseCase } from './application/use-cases/update-user.use-case';
 import { GetAllUsersUseCase } from './application/use-cases/getAll-user.use-case';
+import { DeleteUserUseCase } from './application/use-cases/delete-user.use-case';
 
 @Module({
   controllers: [UsersController],
@@ -19,7 +20,9 @@ import { GetAllUsersUseCase } from './application/use-cases/getAll-user.use-case
     },
     CrearUsuarioUseCase,
     ActualizarUsuarioUseCase,
-    GetAllUsersUseCase
+    GetAllUsersUseCase,
+    //Se añadio delete
+    DeleteUserUseCase
   ],
   exports: [UsersService], // 👈 ¡esto es lo que faltaba!
 })
