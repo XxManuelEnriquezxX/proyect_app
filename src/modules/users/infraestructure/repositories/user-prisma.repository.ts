@@ -38,5 +38,11 @@ export class UserPrismaRepository extends IUserRepository {
   });
   return UserMapper.toDomain(raw);
   }
+  //se añadio delete
+    async eliminar(id: string): Promise<void> {
+    await this.prisma.usuarios.delete({
+      where: { id },
+    });
+  }
 
 }
