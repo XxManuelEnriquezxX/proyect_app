@@ -16,13 +16,45 @@ datasource db {
 }
 
 model Usuarios {
-  id               String @id @default(cuid())
-  nombreUsuario    String @unique @db.VarChar(64)
-  password String @db.VarChar(64)
-  email            String @unique @db.VarChar(64) 
-  name             String @db.VarChar(64)
-  apellidoPaterno  String @db.VarChar(64)
-  apellidoMaterno  String @db.VarChar(64)
+  id               String   @id @default(cuid())
+  nombreUsuario    String   @unique @db.VarChar(64)
+  password         String   @db.VarChar(64)
+  email            String   @unique @db.VarChar(64)
+  name             String   @db.VarChar(64)
+  apellidoPaterno  String   @db.VarChar(64)
+  apellidoMaterno  String   @db.VarChar(64)
   suscripto        Boolean
+
+  // Relaciones
+  suscripcionesCreadas   Suscripcion[]        @relation("SuscripcionesCreadas")
+  suscripcionesAsociadas UserSubscription[]
+
   @@map("usuarios")
+}
+
+model Suscripcion {
+  id           String             @id @default(cuid())
+  nombre       String             @db.VarChar(64)
+  descripcion  String?            @db.Text
+  ownerId      String
+
+  // Relaciones
+  owner        Usuarios           @relation("SuscripcionesCreadas", fields: [ownerId], references: [id])
+  miembros     UserSubscription[]
+
+  createdAt    DateTime           @default(now())
+
+  @@map("suscripciones")
+}
+
+model UserSubscription {
+  id             String        @id @default(cuid())
+  usuarioId      String
+  suscripcionId  String
+
+  usuario        Usuarios      @relation(fields: [usuarioId], references: [id])
+  suscripcion    Suscripcion   @relation(fields: [suscripcionId], references: [id])
+
+  @@unique([usuarioId, suscripcionId])
+  @@map("user_subscription")
 }
