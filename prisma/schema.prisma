@@ -27,7 +27,7 @@ model Usuarios {
 
   // Relaciones
   suscripcionesCreadas   Suscripcion[]        @relation("SuscripcionesCreadas")
-  suscripcionesAsociadas UserSubscription[]
+  suscripcionesAsociadas UsuarioSubscripcion[]
 
   @@map("usuarios")
 }
@@ -40,14 +40,14 @@ model Suscripcion {
 
   // Relaciones
   owner        Usuarios           @relation("SuscripcionesCreadas", fields: [ownerId], references: [id])
-  miembros     UserSubscription[]
+  miembros     UsuarioSubscripcion[]
 
   createdAt    DateTime           @default(now())
 
   @@map("suscripciones")
 }
 
-model UserSubscription {
+model UsuarioSubscripcion {
   id             String        @id @default(cuid())
   usuarioId      String
   suscripcionId  String
@@ -56,5 +56,5 @@ model UserSubscription {
   suscripcion    Suscripcion   @relation(fields: [suscripcionId], references: [id])
 
   @@unique([usuarioId, suscripcionId])
-  @@map("user_subscription")
+  @@map("usuario_subscription")
 }
