@@ -5,8 +5,8 @@ import { Suscripcion } from '../../domain/entities/subscription';
 
 @Injectable()
 export class SuscripcionPrismaRepository implements ISuscripcionRepository {
-  constructor(private readonly prisma: PrismaService) {}  
-  
+  constructor(private readonly prisma: PrismaService) {}
+
   async crear(suscripcion: Suscripcion): Promise<Suscripcion> {
     const created = await this.prisma.suscripcion.create({
       data: {
@@ -15,8 +15,6 @@ export class SuscripcionPrismaRepository implements ISuscripcionRepository {
         ownerId: suscripcion.ownerId,
       },
     });
-  
-  
 
     return new Suscripcion(
       created.id,
@@ -27,7 +25,8 @@ export class SuscripcionPrismaRepository implements ISuscripcionRepository {
     );
   }
 
-   async buscarPorId(id: string): Promise<Suscripcion | null> {
+  
+ async buscarPorId(id: string): Promise<Suscripcion | null> {
     const found = await this.prisma.suscripcion.findUnique({
       where: { id },
     });
@@ -43,7 +42,22 @@ export class SuscripcionPrismaRepository implements ISuscripcionRepository {
     );
   }
 
-    async actualizar(id: string, suscripcion: Suscripcion): Promise<Suscripcion> {
+  async obtenerTodas(): Promise<Suscripcion[]> {
+    const all = await this.prisma.suscripcion.findMany();
+
+    return all.map(
+      (s) =>
+        new Suscripcion(
+          s.id,
+          s.nombre,
+          s.ownerId,
+          s.descripcion ?? "",
+          s.createdAt,
+        ),
+    );
+  }
+
+  async actualizar(id: string, suscripcion: Suscripcion): Promise<Suscripcion> {
     const updated = await this.prisma.suscripcion.update({
       where: { id },
       data: {
@@ -60,8 +74,11 @@ export class SuscripcionPrismaRepository implements ISuscripcionRepository {
       updated.createdAt,
     );
   }
-}
 
-
-
+  async eliminar(id: string): Promise<void> {
+    await this.prisma.suscripcion.delete({
+      where: { id },
+    });
+  }
  
+}
