@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { SuscripcionesController } from './modules/suscripciones/infraestructure/controllers/suscripciones/suscripciones.controller';
+import { SuscripcionesController } from './modules/suscripciones/infraestructure/controllers/suscripciones.controller';
 import { SuscripcionesModule } from './modules/suscripciones/suscripciones.module';
 
 
@@ -17,7 +17,7 @@ import { SuscripcionesModule } from './modules/suscripciones/suscripciones.modul
     UsersModule,
     SuscripcionesModule,
   ],
-  controllers: [AppController, SuscripcionesController],
+  controllers: [AppController], 
   providers: [AppService],
 })
 export class AppModule {}
