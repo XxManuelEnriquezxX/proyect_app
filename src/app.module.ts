@@ -6,6 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { SuscripcionesController } from './modules/suscripciones/infraestructure/controllers/suscripciones.controller';
 import { SuscripcionesModule } from './modules/suscripciones/suscripciones.module';
+import { UsuarioSuscripcionModule } from './modules/usuario-suscripcion/usuario-suscripcion.module';
 
 
 @Module({
@@ -16,6 +17,7 @@ import { SuscripcionesModule } from './modules/suscripciones/suscripciones.modul
     AuthModule,
     UsersModule,
     SuscripcionesModule,
+    UsuarioSuscripcionModule,
   ],
   controllers: [AppController], 
   providers: [AppService],

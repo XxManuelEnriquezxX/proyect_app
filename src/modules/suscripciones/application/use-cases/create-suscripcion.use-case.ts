@@ -16,11 +16,11 @@ export class CreateSuscripcionUseCase {
     const { nombre, descripcion, ownerId } = params;
 
     const nuevaSuscripcion = new Suscripcion(
-      '', // 👈 Dejar en blanco para que lo genere la BD
+      '', 
       nombre,
       ownerId,
       descripcion,
-      new Date(), // opcionalmente puedes omitir si lo maneja la BD también
+      new Date(), 
     );
 
     return this.suscripcionRepository.crear(nuevaSuscripcion);
