@@ -5,6 +5,7 @@ import { IUsuarioSuscripcionRepository } from './domain/interfaces/usuario-suscr
 import { AsociarUsuarioUseCase } from './application/use-cases/asociar-usuario.use-case';
 import { UsuarioSuscripcionController } from './infraestructure/controllers/usuario-suscripcion.controller';
 import { SalirDeSuscripcionUseCase } from './application/use-cases/salirSuscripcion.use-case';
+import { EliminarMiembroUseCase } from './application/use-cases/eliminarMiembro-use.case';
 
 @Module({
   controllers: [UsuarioSuscripcionController],
@@ -12,6 +13,7 @@ import { SalirDeSuscripcionUseCase } from './application/use-cases/salirSuscripc
     PrismaService,
     AsociarUsuarioUseCase,
     SalirDeSuscripcionUseCase,
+    EliminarMiembroUseCase,
     {
       provide: IUsuarioSuscripcionRepository,
       useClass: UsuarioSuscripcionPrismaRepository,

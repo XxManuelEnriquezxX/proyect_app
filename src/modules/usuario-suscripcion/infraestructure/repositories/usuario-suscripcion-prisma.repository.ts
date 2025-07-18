@@ -36,6 +36,7 @@ export class UsuarioSuscripcionPrismaRepository implements IUsuarioSuscripcionRe
   }
 
   async eliminar(usuarioId: string, suscripcionId: string): Promise<void> {
+
     await this.prisma.usuarioSubscripcion.delete({
       where: {
         usuarioId_suscripcionId: {
