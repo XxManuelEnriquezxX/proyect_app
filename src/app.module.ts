@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { SuscripcionesController } from './modules/suscripciones/infraestructure/controllers/suscripciones.controller';
-import { SuscripcionesModule } from './modules/suscripciones/suscripciones.module';
-import { UsuarioSuscripcionModule } from './modules/usuario-suscripcion/usuario-suscripcion.module';
+import { GrupoController } from './modules/grupos/infraestructure/controllers/grupos.controller';
+import { GrupoModule } from './modules/grupos/grupo.module';
+import { UsuarioSuscripcionModule } from './modules/grupo-user/usuario-suscripcion.module';
 
 
 @Module({
@@ -16,7 +16,7 @@ import { UsuarioSuscripcionModule } from './modules/usuario-suscripcion/usuario-
     }),
     AuthModule,
     UsersModule,
-    SuscripcionesModule,
+    GrupoModule,
     UsuarioSuscripcionModule,
   ],
   controllers: [AppController], 

@@ -7,6 +7,8 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+
 }
 
 datasource db {
@@ -26,35 +28,34 @@ model Usuarios {
   suscripto        Boolean
 
   // Relaciones
-  suscripcionesCreadas   Suscripcion[]        @relation("SuscripcionesCreadas")
-  suscripcionesAsociadas UsuarioSubscripcion[]
+  gruposCreados   Grupo[]        @relation("GruposCreados")
+  gruposAsociados UsuarioGrupo[]
 
   @@map("usuarios")
 }
 
-model Suscripcion {
-  id           String             @id @default(cuid())
-  nombre       String             @db.VarChar(64)
-  descripcion  String?            @db.Text
+model Grupo {
+  id           String         @id @default(cuid())
+  nombre       String         @db.VarChar(64)
+  descripcion  String?        @db.Text
   ownerId      String
 
   // Relaciones
-  owner        Usuarios           @relation("SuscripcionesCreadas", fields: [ownerId], references: [id])
-  miembros     UsuarioSubscripcion[]
+  owner        Usuarios       @relation("GruposCreados", fields: [ownerId], references: [id])
+  miembros     UsuarioGrupo[]
 
-  createdAt    DateTime           @default(now())
+  createdAt    DateTime       @default(now())
 
-  @@map("suscripciones")
+  @@map("grupos") // Si también quieres cambiar el nombre de la tabla en la BD
 }
+model UsuarioGrupo {
+  id           String     @id @default(cuid())
+  usuarioId    String
+  grupoId      String
 
-model UsuarioSubscripcion {
-  id             String        @id @default(cuid())
-  usuarioId      String
-  suscripcionId  String
+  usuario      Usuarios   @relation(fields: [usuarioId], references: [id])
+  grupo        Grupo      @relation(fields: [grupoId], references: [id])
 
-  usuario        Usuarios      @relation(fields: [usuarioId], references: [id])
-  suscripcion    Suscripcion   @relation(fields: [suscripcionId], references: [id])
-
-  @@unique([usuarioId, suscripcionId])
-  @@map("usuario_subscription")
+  @@unique([usuarioId, grupoId])
+  @@map("usuario_grupo")
 }
