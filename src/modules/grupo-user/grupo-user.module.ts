@@ -7,6 +7,7 @@ import { UsuarioGrupoController } from './infraestructure/controllers/usuario-gr
 import { EliminarMiembroUseCase } from './application/use-cases/eliminarMiembro-use.case';
 import { SalirDeGrupoUseCase } from './application/use-cases/salirseDeGrupo-use.case';
 import { ObtenerGruposMiembroUseCase } from './application/use-cases/obtener-grupos-miembro.use-case';
+import { ObtenerMiembrosGrupoUseCase } from './application/use-cases/obtener-miembros-grupo.use-case';
 
 
 @Module({
@@ -17,6 +18,7 @@ import { ObtenerGruposMiembroUseCase } from './application/use-cases/obtener-gru
     EliminarMiembroUseCase,
     SalirDeGrupoUseCase,
     ObtenerGruposMiembroUseCase,
+    ObtenerMiembrosGrupoUseCase,
     {
       provide: IUsuarioGrupoRepository,
       useClass: UsuarioSuscripcionPrismaRepository,

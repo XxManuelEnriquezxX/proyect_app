@@ -5,6 +5,7 @@ import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { EliminarMiembroUseCase } from '../../application/use-cases/eliminarMiembro-use.case';
 import{SalirDeGrupoUseCase} from '../../application/use-cases/salirseDeGrupo-use.case';
 import { ObtenerGruposMiembroUseCase } from '../../application/use-cases/obtener-grupos-miembro.use-case';
+import { ObtenerMiembrosGrupoUseCase } from '../../application/use-cases/obtener-miembros-grupo.use-case';
 
 @UseGuards(JwtAuthGuard)
 @Controller('usuarioGrupo')
@@ -13,7 +14,8 @@ export class UsuarioGrupoController {
     private readonly asociarUsuarioUseCase: AsociarUsuarioUseCase,
     private readonly eliminarMiembroUseCase : EliminarMiembroUseCase,
     private readonly salirseDeGrupoUseCase: SalirDeGrupoUseCase,
-    private readonly obtenerGruposMiembroUseCase: ObtenerGruposMiembroUseCase
+    private readonly obtenerGruposMiembroUseCase: ObtenerGruposMiembroUseCase,
+    private readonly obtenerMiembrosGrupoUseCase: ObtenerMiembrosGrupoUseCase
   ) {}
 
   @Post('AddUserToGroup')
@@ -52,4 +54,10 @@ export class UsuarioGrupoController {
    const grupos = await this.obtenerGruposMiembroUseCase.execute(req.user.sub);
    return grupos.map((g) => g.value());
   }
+
+  @Get('MiembrosDeGrupo/:grupoId')
+ async obtenerMiembros(@Request() req, @Param('grupoId') grupoId: string) {
+  const miembros = await this.obtenerMiembrosGrupoUseCase.execute(req.user.sub, grupoId);
+  return miembros.map((m) => m.value());
+}
 }                                           

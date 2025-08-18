@@ -3,6 +3,7 @@ import { PrismaService } from 'src/core/databases/prisma.service';
 import { IUsuarioGrupoRepository } from 'src/modules/grupo-user/domain/interfaces/usuario-grupo-repository.interface';
 import { UsuarioGrupo } from '../../domain/entities/usuarioGrupo';
 import { Grupo } from 'src/modules/grupos/domain/entities/grupo';
+import { User } from 'src/modules/users/domain/entities/user';
 @Injectable()
 export class UsuarioSuscripcionPrismaRepository implements IUsuarioGrupoRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -74,6 +75,23 @@ export class UsuarioSuscripcionPrismaRepository implements IUsuarioGrupoReposito
     rel.grupo.ownerId,
     rel.grupo.descripcion ?? undefined,
     rel.grupo.createdAt ?? undefined
+  ));
+}
+async obtenerMiembrosPorGrupo(grupoId: string): Promise<User[]> {
+  const miembros = await this.prisma.usuarioGrupo.findMany({
+    where: { grupoId },
+    include: { usuario: true },
+  });
+
+  return miembros.map((m) => new User(
+    m.usuario.id,
+    m.usuario.nombreUsuario,
+    m.usuario.password,
+    m.usuario.email,
+    m.usuario.name,
+    m.usuario.apellidoPaterno,
+    m.usuario.apellidoMaterno,
+    m.usuario.suscripto,
   ));
 }
 
