@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IGrupoRepository } from '../../domain/interfaces/grupo-repository.interface';
-import { Suscripcion } from '../../domain/entities/subscription';
+import { Grupo } from '../../domain/entities/grupo';
 
 @Injectable()
 export class CreateGroupUseCase {
@@ -12,10 +12,10 @@ export class CreateGroupUseCase {
     nombre: string;
     descripcion?: string;
     ownerId: string;
-  }): Promise<Suscripcion> {
+  }): Promise<Grupo> {
     const { nombre, descripcion, ownerId } = params;
 
-    const nuevaSuscripcion = new Suscripcion(
+    const nuevaSuscripcion = new Grupo(
       '', 
       nombre,
       ownerId,

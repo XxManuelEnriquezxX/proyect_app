@@ -16,12 +16,13 @@ export class AuthController {
         return this.authService.createJWT(req.user);//Se lee el usuario autenticado
     }
 
-    
+   /* 
     @UseGuards(LocalAuthGuard)
     @Post('logout') // /auth/logout
     async logout(@Request() req)
     {
         return req.logout();
     }
+        */
 
 }

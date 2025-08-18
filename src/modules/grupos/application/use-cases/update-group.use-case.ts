@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { IGrupoRepository } from '../../domain/interfaces/grupo-repository.interface';
-import { Suscripcion } from '../../domain/entities/subscription';
+import { Grupo } from '../../domain/entities/grupo';
 
 @Injectable()
 export class ActualizarGrupoUseCase {
@@ -8,14 +8,14 @@ export class ActualizarGrupoUseCase {
     private readonly suscripcionRepository: IGrupoRepository,
   ) {}
 
-  async execute(id: string, data: Partial<Omit<Suscripcion, 'id' | 'ownerId' | 'createdAt'>>): Promise<Suscripcion> {
+  async execute(id: string, data: Partial<Omit<Grupo, 'id' | 'ownerId' | 'createdAt'>>): Promise<Grupo> {
     const existente = await this.suscripcionRepository.buscarPorId(id);
 
     if (!existente) {
       throw new NotFoundException('La suscripción no existe');
     }
 
-    const suscripcionActualizada = new Suscripcion(
+    const suscripcionActualizada = new Grupo(
       existente.id,
       data.nombre ?? existente.nombre,
       existente.ownerId,

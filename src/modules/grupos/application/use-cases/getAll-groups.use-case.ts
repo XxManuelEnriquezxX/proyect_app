@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { IGrupoRepository } from '../../domain/interfaces/grupo-repository.interface';
-import { Suscripcion } from '../../domain/entities/subscription';
+import { Grupo } from '../../domain/entities/grupo';
 @Injectable()
 export class ObtenerGruposUseCase {
   constructor(
     private readonly suscripcionRepository: IGrupoRepository,
   ) {}
 
-  async execute(): Promise<Suscripcion[]> {
+  async execute(): Promise<Grupo[]> {
     return this.suscripcionRepository.obtenerTodas();
   }
 }

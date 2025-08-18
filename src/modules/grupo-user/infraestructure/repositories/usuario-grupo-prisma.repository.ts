@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/databases/prisma.service';
 import { IUsuarioGrupoRepository } from 'src/modules/grupo-user/domain/interfaces/usuario-grupo-repository.interface';
 import { UsuarioGrupo } from '../../domain/entities/usuarioGrupo';
-
+import { Grupo } from 'src/modules/grupos/domain/entities/grupo';
 @Injectable()
 export class UsuarioSuscripcionPrismaRepository implements IUsuarioGrupoRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -46,6 +46,36 @@ export class UsuarioSuscripcionPrismaRepository implements IUsuarioGrupoReposito
       },
     });
   }
+
+    async verificarExistencia(usuarioId: string, grupoId: string): Promise<boolean> {
+  const existente = await this.prisma.usuarioGrupo.findUnique({
+    where: {
+      usuarioId_grupoId: {
+        usuarioId,
+        grupoId,
+      },
+    },
+  });
+
+  return !!existente;
+ }
+
+ async obtenerGruposPorUsuario(usuarioId: string): Promise<Grupo[]> {
+  const relaciones = await this.prisma.usuarioGrupo.findMany({
+    where: { usuarioId },
+    include: {
+      grupo: true,
+    },
+  });
+
+  return relaciones.map((rel) => new Grupo(
+    rel.grupo.id,
+    rel.grupo.nombre,
+    rel.grupo.ownerId,
+    rel.grupo.descripcion ?? undefined,
+    rel.grupo.createdAt ?? undefined
+  ));
+}
 
  
 }

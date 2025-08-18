@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/databases/prisma.service';
 import { IGrupoRepository } from 'src/modules/grupos/domain/interfaces/grupo-repository.interface';
-import { Suscripcion } from '../../domain/entities/subscription';
+import { Grupo } from '../../domain/entities/grupo';
 
 @Injectable()
-export class SuscripcionPrismaRepository implements IGrupoRepository {
+export class GrupoPrismaRepository implements IGrupoRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async crear(suscripcion: Suscripcion): Promise<Suscripcion> {
+  async crear(suscripcion: Grupo): Promise<Grupo> {
     const created = await this.prisma.grupo.create({
       data: {
         nombre: suscripcion.nombre,
@@ -16,7 +16,7 @@ export class SuscripcionPrismaRepository implements IGrupoRepository {
       },
     });
 
-    return new Suscripcion(
+    return new Grupo(
       created.id,
       created.nombre,
       created.ownerId,
@@ -26,14 +26,14 @@ export class SuscripcionPrismaRepository implements IGrupoRepository {
   }
 
   
- async buscarPorId(id: string): Promise<Suscripcion | null> {
+ async buscarPorId(id: string): Promise<Grupo | null> {
     const found = await this.prisma.grupo.findUnique({
       where: { id },
     });
 
     if (!found) return null;
 
-    return new Suscripcion(
+    return new Grupo(
       found.id,
       found.nombre,
       found.ownerId,
@@ -42,12 +42,12 @@ export class SuscripcionPrismaRepository implements IGrupoRepository {
     );
   }
 
-  async obtenerTodas(): Promise<Suscripcion[]> {
+  async obtenerTodas(): Promise<Grupo[]> {
     const all = await this.prisma.grupo.findMany();
 
     return all.map(
       (s) =>
-        new Suscripcion(
+        new Grupo(
           s.id,
           s.nombre,
           s.ownerId,
@@ -57,7 +57,7 @@ export class SuscripcionPrismaRepository implements IGrupoRepository {
     );
   }
 
-  async actualizar(id: string, suscripcion: Suscripcion): Promise<Suscripcion> {
+  async actualizar(id: string, suscripcion: Grupo): Promise<Grupo> {
     const updated = await this.prisma.grupo.update({
       where: { id },
       data: {
@@ -66,7 +66,7 @@ export class SuscripcionPrismaRepository implements IGrupoRepository {
       },
     });
 
-    return new Suscripcion(
+    return new Grupo(
       updated.id,
       updated.nombre,
       updated.ownerId,
@@ -81,4 +81,18 @@ export class SuscripcionPrismaRepository implements IGrupoRepository {
     });
   }
  
+  async obtenerPorOwner(ownerId: string): Promise<Grupo[]> {
+  const grupos = await this.prisma.grupo.findMany({
+    where: { ownerId },
+  });
+
+  return grupos.map((g) => new Grupo(
+    g.id,
+    g.nombre,
+    g.ownerId,
+    g.descripcion ?? undefined,
+    g.createdAt ?? undefined
+  ));
+ }
+
 }

@@ -1,4 +1,4 @@
-export class Suscripcion {
+export class Grupo {
   readonly id: string;
   readonly nombre: string;
   readonly descripcion?: string;

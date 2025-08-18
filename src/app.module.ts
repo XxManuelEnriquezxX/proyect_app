@@ -6,7 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { GrupoController } from './modules/grupos/infraestructure/controllers/grupos.controller';
 import { GrupoModule } from './modules/grupos/grupo.module';
-import { UsuarioSuscripcionModule } from './modules/grupo-user/usuario-suscripcion.module';
+import { UsuarioGrupoModule } from './modules/grupo-user/grupo-user.module';
 
 
 @Module({
@@ -17,7 +17,7 @@ import { UsuarioSuscripcionModule } from './modules/grupo-user/usuario-suscripci
     AuthModule,
     UsersModule,
     GrupoModule,
-    UsuarioSuscripcionModule,
+    UsuarioGrupoModule,
   ],
   controllers: [AppController], 
   providers: [AppService],

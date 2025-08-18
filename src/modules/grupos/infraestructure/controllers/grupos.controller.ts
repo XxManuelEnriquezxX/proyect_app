@@ -6,6 +6,7 @@ import { ObtenerGruposUseCase } from '../../application/use-cases/getAll-groups.
 import { UpdateGroupDTO } from '../../application/dtos/update-group.dto';
 import { ActualizarGrupoUseCase } from '../../application/use-cases/update-group.use-case';
 import { EliminarGrupoUseCase } from '../../application/use-cases/delete-group.use-case';
+import { ObtenerGruposDuenioUseCase } from '../../application/use-cases/obtener-grupos-duenio.use-case';
 @UseGuards(JwtAuthGuard)
 @Controller('grupos')
 export class GrupoController {
@@ -13,7 +14,8 @@ export class GrupoController {
     private readonly createSuscripcionUseCase: CreateGroupUseCase,
     private readonly obtenerSuscripcionesUseCase: ObtenerGruposUseCase,
     private readonly actualizarSuscripcionUseCase : ActualizarGrupoUseCase,
-    private readonly eliminarSuscripcionUseCase : EliminarGrupoUseCase
+    private readonly eliminarSuscripcionUseCase : EliminarGrupoUseCase,
+    private readonly obtenerGruposDuenioUseCase: ObtenerGruposDuenioUseCase
   ) {}
 
   @Post('AddGroup')
@@ -53,4 +55,9 @@ export class GrupoController {
       mensaje: 'Suscripción eliminada correctamente',
     };
   }
+  @Get('MisGrupos')
+  async obtenerMisGrupos(@Request() req) {
+  const grupos = await this.obtenerGruposDuenioUseCase.execute(req.user.sub);
+  return grupos.map((g) => g.value());
+}
 }
