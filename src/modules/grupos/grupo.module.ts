@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'src/core/databases/prisma.service';
+import { PrismaService } from '../../core/databases/prisma.service';
 import { GrupoController } from './infraestructure/controllers/grupos.controller';
 import { CreateGroupUseCase } from './application/use-cases/create-group.use-case';
 import { IGrupoRepository } from './domain/interfaces/grupo-repository.interface';

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/core/databases/prisma.service';
+import { PrismaService } from '../../../../core/databases/prisma.service';
 import { IGrupoRepository } from 'src/modules/grupos/domain/interfaces/grupo-repository.interface';
 import { Grupo } from '../../domain/entities/grupo';
 

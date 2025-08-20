@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'src/core/databases/prisma.service';
+import { PrismaService } from '../../core/databases/prisma.service';
 import { UsuarioSuscripcionPrismaRepository } from './infraestructure/repositories/usuario-grupo-prisma.repository';
 import { IUsuarioGrupoRepository } from './domain/interfaces/usuario-grupo-repository.interface';
 import { AsociarUsuarioUseCase } from './application/use-cases/asociar-usuario.use-case';

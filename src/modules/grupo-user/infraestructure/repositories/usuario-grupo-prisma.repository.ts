@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/core/databases/prisma.service';
+import { PrismaService } from '../../../../core/databases/prisma.service';
 import { IUsuarioGrupoRepository } from 'src/modules/grupo-user/domain/interfaces/usuario-grupo-repository.interface';
 import { UsuarioGrupo } from '../../domain/entities/usuarioGrupo';
-import { Grupo } from 'src/modules/grupos/domain/entities/grupo';
-import { User } from 'src/modules/users/domain/entities/user';
+import { Grupo } from '../../../grupos/domain/entities/grupo';
+import { User } from '../../../users/domain/entities/user';
 @Injectable()
 export class UsuarioSuscripcionPrismaRepository implements IUsuarioGrupoRepository {
   constructor(private readonly prisma: PrismaService) {}

@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Post, UseGuards, Request, Param, Get } from '@nestjs/common';
 import { AsociarUsuarioDTO } from '../../application/dtos/asociarUsuario.dto';
-import { AsociarUsuarioUseCase } from 'src/modules/grupo-user/application/use-cases/asociar-usuario.use-case';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { AsociarUsuarioUseCase } from '../../../grupo-user/application/use-cases/asociar-usuario.use-case';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 import { EliminarMiembroUseCase } from '../../application/use-cases/eliminarMiembro-use.case';
 import{SalirDeGrupoUseCase} from '../../application/use-cases/salirseDeGrupo-use.case';
 import { ObtenerGruposMiembroUseCase } from '../../application/use-cases/obtener-grupos-miembro.use-case';

@@ -1,6 +1,6 @@
 import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { IUsuarioGrupoRepository } from '../../domain/interfaces/usuario-grupo-repository.interface';
-import { PrismaService } from 'src/core/databases/prisma.service';
+import { PrismaService } from '../../../../core/databases/prisma.service';
 
 @Injectable()
 export class EliminarMiembroUseCase {

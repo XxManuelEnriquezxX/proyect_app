@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Request, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { CreateGroupUseCase } from 'src/modules/grupos/application/use-cases/create-group.use-case';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { CreateGroupUseCase } from '../../../grupos/application/use-cases/create-group.use-case';
 import { CrearGrupoDTO } from '../../application/dtos/create-group.dto';
 import { ObtenerGruposUseCase } from '../../application/use-cases/getAll-groups.use-case';
 import { UpdateGroupDTO } from '../../application/dtos/update-group.dto';

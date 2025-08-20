@@ -3,7 +3,7 @@ import { User } from '../../domain/entities/user';
 import { IUserRepository } from '../../domain/interfaces/user-repository.interface';
 import { CrearUsuarioDTO } from '../dtos/create-user.dto';
 import * as bcrypt from 'bcrypt';
-import { Prisma } from 'generated/prisma';
+import { Prisma } from '../../../../../generated/prisma';
 /**
  * Caso de uso para crear un usuario
  */

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CrearUsuarioUseCase } from '../../application/use-cases/create-user.use-case';
 import { CrearUsuarioDTO } from '../../application/dtos/create-user.dto';
 import { User } from '../../domain/entities/user';
@@ -7,9 +7,16 @@ import { ActualizarUsuarioDTO } from '../../application/dtos/update-user.dto';
 import { ActualizarUsuarioUseCase } from '../../application/use-cases/update-user.use-case';
 import { GetAllUsersUseCase } from '../../application/use-cases/getAll-user.use-case';
 import { DeleteUserUseCase } from '../../application/use-cases/delete-user.use-case';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
+  createUser(userData: { nombreUsuario: string; email: string; password: string; }) {
+    throw new Error('Method not implemented.');
+  }
+  updateUser(userId: string, userData: { nombreUsuario: string; email: string; }) {
+    throw new Error('Method not implemented.');
+  }
   
   constructor(
     private readonly crearUsuarioUseCase: CrearUsuarioUseCase,  
@@ -46,13 +53,15 @@ export class UsersController {
     };
   }
   @Get('GetAllUsers')
+  @UseGuards(JwtAuthGuard)
   async findAll() {
     const users = await this.getAllUsersUseCase.execute();
-    return users.map(user => user.value());
+    return users;
+    //return users.map(user => user.value());
   }
 //Se añadio delete
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT) // Código 204: la operación fue exitosa pero no hay contenido que devolver
+  @HttpCode(HttpStatus.OK) // Código 204: la operación fue exitosa pero no hay contenido que devolver
   async delete(@Param('id') id: string): Promise<void> {
     return this.deleteUserUserCase.execute(id);
   }
