@@ -31,7 +31,7 @@ export class GrupoController {
     });
 
     return {
-      mensaje: 'Suscripción creada correctamente',
+      mensaje: 'Grupo creado correctamente',
       suscripcion: nueva.value(),
     };
   }
@@ -44,7 +44,7 @@ export class GrupoController {
   async actualizar(@Param('id') id: string, @Body() dto: UpdateGroupDTO) {
     const actualizada = await this.actualizarSuscripcionUseCase.execute(id, dto);
     return {
-      mensaje: 'Suscripción actualizada correctamente',
+      mensaje: 'Grupo actualizado correctamente',
       suscripcion: actualizada.value(),
     };
   }
